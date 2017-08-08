@@ -1,19 +1,23 @@
 # apns
 
 ```swift
+struct Custom: Codable, CustomPayload {
+    let test: String
+}
+
 class apnsTests: XCTestCase {
     var target: APNS!
     func testSend() throws {
-        // 設定ファイルから初期化
+        // Initialize from the config file
         target = try APNS(configPath: "/Users/mono/Documents/Config.plist")
 
-        // 普通の引数でもOK
+        // Or from each argument
 //        target = try APNS(keyPath: "YOUR_p8_KEY_PATH",
 //                          keyId: "YOUR_KEY_ID",
 //                          teamId: "YOUR_TEAM_ID",
 //                          environment: .sandbox, .production or .all) // environmentは省略可能
 
-        // 全フィールド、省略可能
+        // All fields can be amitted
         let alert = Alert(title: "title",
                           subtitle: "subtitle",
                           body: "body",
@@ -24,19 +28,19 @@ class apnsTests: XCTestCase {
                           bodyLocalizationArguments: nil,
                           launchImage: nil)
         let aps = Aps(alert: alert,
-                      badge: nil, // 以下、省略可能
+                      badge: nil, // Can be omitted below
                       sound: "Default",
                       contentAvailable: nil,
                       category: nil,
                       threadId: nil)
         let payload = Payload(aps: aps,
-                              custom: Custom(test: "custom-value")) // customは省略可能
+                              custom: Custom(test: "custom-value")) //  Can be omitted
         let request = APNSRequest(topic: "com.mono0926.notification.example",
                                   payload: payload,
-                                  apnsIdentifier: UUID(), // 以下、省略可能
+                                  apnsIdentifier: UUID(), // Can be omitted below
                                   priority: .immediately,
                                   expiration: Date().addingTimeInterval(3600),
-                                  collapseIdentifier: "(　´･‿･｀)")
+                                  collapseIdentifier: "collapse-identifier")
         
         try target.send(request: request,
                         deviceTokens: ["0c34a62170c1c0be603780e6458b20dc902730094805b87bef896e6f5ed9bbcb"])
