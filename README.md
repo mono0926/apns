@@ -1,11 +1,13 @@
 # APNS 
 
-# `APNS` initialization
+## `APNS` initialization
 
 There are two ways to initialize `APNS` instance.
 
 - By code.
 - Locate [Config.plist](https://github.com/mono0926/apns/blob/master/Config.plist).
+
+## Example
 
 ```swift
 class apnsTests: XCTestCase {
