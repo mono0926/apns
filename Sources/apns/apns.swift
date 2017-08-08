@@ -77,7 +77,7 @@ public struct APNS
             }
             return apsPayload
         }()
-        urlRequest.httpBody = try! JSONSerialization.data(withJSONObject: payload)
+        urlRequest.httpBody = try JSONSerialization.data(withJSONObject: payload)
         return urlRequest
     }
 }

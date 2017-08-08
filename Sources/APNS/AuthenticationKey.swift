@@ -72,7 +72,7 @@ class AuthenticationKey {
 
     private static func dataFromHexadecimalString(text: String) throws -> Data {
         var data = Data(capacity: text.characters.count / 2)
-        let regex = try! NSRegularExpression(pattern: "[0-9a-f]{1,2}", options: .caseInsensitive)
+        let regex = try NSRegularExpression(pattern: "[0-9a-f]{1,2}", options: .caseInsensitive)
         regex.enumerateMatches(in: text, options: [], range: NSRange(location: 0, length: text.characters.count)) { match, flags, stop in
             let range = Range<String.Index>(match!.range, in: text)!
             let byteString = text[range]
