@@ -1,12 +1,9 @@
 import XCTest
 import APNS
 
-struct Custom: Codable, CustomPayload {
-    let test: String
-}
-
 class apnsTests: XCTestCase {
     var target: APNS!
+    private let deviceToken: DeviceToken = "0c34a62170c1c0be603780e6458b20dc902730094805b87bef896e6f5ed9bbcb"
     func testSend() throws {
         // Initialize from the config file
         target = try APNS(configPath: "/Users/mono/Documents/Config.plist")
@@ -42,8 +39,9 @@ class apnsTests: XCTestCase {
                                   expiration: Date().addingTimeInterval(3600),
                                   collapseIdentifier: "collapse-identifier")
         
-        try target.send(request: request,
-                        deviceTokens: ["0c34a62170c1c0be603780e6458b20dc902730094805b87bef896e6f5ed9bbcb"])
+        let results = try target.send(request: request,
+                        deviceTokens: [deviceToken])
+        results.forEach { print($0) }
     }
 
     func testSend_JSON() throws {
@@ -55,7 +53,12 @@ class apnsTests: XCTestCase {
         let request = APNSRequest(topic: "com.mono0926.notification.example",
                                   payload: payload)
 
-        try target.send(request: request,
-                        deviceTokens: ["0c34a62170c1c0be603780e6458b20dc902730094805b87bef896e6f5ed9bbcb"])
+        let results = try target.send(request: request,
+                                      deviceTokens: [deviceToken])
+        results.forEach { print($0) }
     }
+}
+
+struct Custom: Codable, CustomPayload {
+    let test: String
 }

@@ -30,21 +30,26 @@ public struct APNS
         try self.init(keyPath: keyPath, keyId: keyId, teamId: teamId, environment: environment)
     }
 
-    public func send(request: APNSRequest, deviceTokens: [DeviceToken]) throws {
-        try deviceTokens.forEach {
-            try send(request: request, deviceToken: $0)
-        }
+    public func send(request: APNSRequest, deviceToken: DeviceToken) throws -> [APNSResult] {
+        return try send(request: request, deviceTokens: [deviceToken])
     }
 
-    public func send(request: APNSRequest, deviceToken: DeviceToken) throws {
-        let urlRequests = try environment.urls.map { url in
-            return try createURLRequest(request: request,
-                                        url: url.appendingPathComponent(deviceToken.value))
+    public func send(request: APNSRequest, deviceTokens: [DeviceToken]) throws -> [APNSResult] {
+        let resuests = try environment.urls.map { url in
+            try deviceTokens.map { token in
+                try createURLRequest(request: request,
+                                     url: url.appendingPathComponent(token.value))
+            }
+            }
+            .flatMap { $0 }
+
+        var results = [Int: APNSResult]()
+        DispatchQueue.concurrentPerform(iterations: resuests.count) { i in
+            let r = session.sendSync(request: resuests[i])
+            let result = APNSResult(data: r.0, response: r.1, error: r.2)
+            results[i] = result
         }
-        DispatchQueue.concurrentPerform(iterations: urlRequests.count) { i in
-            let r = session.sendSync(request: urlRequests[i])
-            print(r)
-        }
+        return results.sorted { $1.key > $0.key }.map { $0.1 }
     }
     private func createURLRequest(request: APNSRequest, url: URL) throws -> URLRequest {
         var urlRequest = URLRequest(url: url)
