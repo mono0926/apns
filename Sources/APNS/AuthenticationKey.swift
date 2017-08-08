@@ -22,8 +22,8 @@ class AuthenticationKey {
             return cache.token
         }
         let jwt = try JWT(additionalHeaders: [KeyID(keyId)],
-                        payload: JSON(.object(["iss":.string(teamId), "iat": .number(.int(Int(now.timeIntervalSince1970.rounded())))])),
-                        signer: ES256(key: privateKey.bytes.base64Decoded))
+                          payload: JSON(.object(["iss":.string(teamId), "iat": .number(.int(Int(now.timeIntervalSince1970.rounded())))])),
+                          signer: ES256(key: privateKey.bytes.base64Decoded))
         let token = try jwt.createToken()
         let jwtToVerify = try JWT(token: token)
         try jwtToVerify.verifySignature(using: ES256(key: publicKey.bytes.base64Decoded))
@@ -64,22 +64,10 @@ class AuthenticationKey {
         }
         let pubKeyHexString = Data(bytes: Bytes((0..<Int(pubLen)).map { Byte(pub[$0]) })).hexString
 
-        let priBase64String = String(bytes: try dataFromHexadecimalString(text: "00\(priKeyHexString)").base64Encoded)
-        let pubBase64String = String(bytes: try dataFromHexadecimalString(text: pubKeyHexString).base64Encoded)
+        let priBase64String = String(bytes: Data(hex: "00\(priKeyHexString)").base64Encoded)
+        let pubBase64String = String(bytes: Data(hex: pubKeyHexString).base64Encoded)
 
         return (priBase64String, pubBase64String)
-    }
-
-    private static func dataFromHexadecimalString(text: String) throws -> Data {
-        var data = Data(capacity: text.characters.count / 2)
-        let regex = try NSRegularExpression(pattern: "[0-9a-f]{1,2}", options: .caseInsensitive)
-        regex.enumerateMatches(in: text, options: [], range: NSRange(location: 0, length: text.characters.count)) { match, flags, stop in
-            let range = Range<String.Index>(match!.range, in: text)!
-            let byteString = text[range]
-            var num = UInt8(byteString, radix: 16)
-            data.append(&num!, count: 1)
-        }
-        return data
     }
 }
 
@@ -90,3 +78,4 @@ struct KeyID: Header {
         node = Node(keyID)
     }
 }
+
