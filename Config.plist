@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>KeyPath</key>
+	<string>YOUR_p8_KEY_PATH</string>
+	<key>KeyId</key>
+	<string>YOUR_KEY_ID</string>
+	<key>TeamId</key>
+	<string>YOUR_TEAM_ID</string>
+	<key>Environment</key>
+	<string>sandbox, production or all</string>
+</dict>
+</plist>

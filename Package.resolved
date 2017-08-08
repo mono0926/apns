@@ -11,12 +11,21 @@
         }
       },
       {
+        "package": "CLibreSSL",
+        "repositoryURL": "https://github.com/vapor/clibressl.git",
+        "state": {
+          "branch": null,
+          "revision": "23ddb296981d17a8ee6c7418742a40cad5d2f9d0",
+          "version": "1.0.0"
+        }
+      },
+      {
         "package": "CTLS",
         "repositoryURL": "https://github.com/vapor/ctls.git",
         "state": {
           "branch": null,
-          "revision": "20cecfae4abeea245cb4f8cc739c160fcca046b8",
-          "version": "1.0.0"
+          "revision": "5dc5096fcbeea87abf92796d281c582762da7f84",
+          "version": "1.1.1"
         }
       },
       {
@@ -24,8 +33,8 @@
         "repositoryURL": "https://github.com/vapor/core.git",
         "state": {
           "branch": null,
-          "revision": "1b593cd335b465b92cc530b5125f4712cc2827cc",
-          "version": "2.1.1"
+          "revision": "b8330808f4f6b69941961afe8ad6b015562f7b7c",
+          "version": "2.1.2"
         }
       },
       {
@@ -33,8 +42,17 @@
         "repositoryURL": "https://github.com/vapor/crypto.git",
         "state": {
           "branch": null,
-          "revision": "e999fa960b63746e4d0a040eade7f2620e0de0af",
-          "version": "2.0.0"
+          "revision": "d23bd514a8e66246450824850318debf12295427",
+          "version": "2.1.0"
+        }
+      },
+      {
+        "package": "CryptoSwift",
+        "repositoryURL": "https://github.com/krzyzanowskim/CryptoSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "85c659ac534c5f8a72eb3b72488fb941e82763bd",
+          "version": "0.6.9"
         }
       },
       {

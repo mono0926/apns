@@ -4,25 +4,26 @@
 import PackageDescription
 
 let package = Package(
-    name: "apns",
+    name: "APNS",
     products: [
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .library(
-            name: "apns",
-            targets: ["apns"]),
+            name: "APNS",
+            targets: ["APNS"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-        .package(url: "https://github.com/vapor/jwt.git", from: "2.2.0")
+        .package(url: "https://github.com/vapor/jwt.git", from: "2.2.0"),
+        .package(url: "https://github.com/vapor/clibressl.git", from: "1.0.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
         .target(
-            name: "apns",
-            dependencies: ["JWT"]),
+            name: "APNS",
+            dependencies: ["JWT", "CLibreSSL"]),
         .testTarget(
-            name: "apnsTests",
-            dependencies: ["apns"]),
+            name: "APNSTests",
+            dependencies: ["APNS"]),
     ]
 )
