@@ -4,7 +4,7 @@ public struct Environment: OptionSet {
     public let rawValue: UInt8
 
     public static let sandbox = Environment(rawValue: 0b01)
-    public static let production = Environment(rawValue: 0b01)
+    public static let production = Environment(rawValue: 0b10)
     public static let all = Environment(rawValue: 0b11)
 
     var urls: [URL] {
