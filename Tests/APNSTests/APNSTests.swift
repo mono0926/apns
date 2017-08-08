@@ -1,7 +1,7 @@
 import XCTest
 import APNS
 
-class apnsTests: XCTestCase {
+class APNSTests: XCTestCase {
     var target: APNS!
     private let deviceToken: DeviceToken = "0c34a62170c1c0be603780e6458b20dc902730094805b87bef896e6f5ed9bbcb"
 
