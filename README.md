@@ -24,7 +24,7 @@ class APNSTests: XCTestCase {
 //                          teamId: "YOUR_TEAM_ID",
 //                          environment: .sandbox, .production or .all) // environmentは省略可能
 
-        // All fields can be amitted
+        // All fields can be omitted
         let alert = Alert(title: "title",
                           subtitle: "subtitle",
                           body: "body",
